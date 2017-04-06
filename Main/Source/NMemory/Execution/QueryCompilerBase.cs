@@ -159,18 +159,11 @@ namespace NMemory.Execution
 
         private Delegate CompileCore(Expression expression, ParameterExpression parameter)
         {
-            if (expression is MethodCallExpression)
+            if (expression is MethodCallExpression || expression is ConstantExpression)
             {
                 return Expression.Lambda(expression, parameter).Compile();
             }
-            else if (expression is ConstantExpression)
-            {
-                return Expression.Lambda(expression, parameter).Compile();
-            }
-            else
-            {
-                throw new NotSupportedException();
-            }
+            throw new NotSupportedException();
         }
     }
 }
